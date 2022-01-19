@@ -38,6 +38,7 @@ build_artifact:
       - build/libs/*.jar
 
 test:
+  image: gradle:alpine
   stage: test
   script: gradle check
   cache:

@@ -24,7 +24,7 @@ variables:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-build:
+build_artifact:
   stage: build
   script: gradle --build-cache assemble
   cache:
@@ -33,6 +33,9 @@ build:
     paths:
       - build
       - .gradle
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
 test:
   stage: test

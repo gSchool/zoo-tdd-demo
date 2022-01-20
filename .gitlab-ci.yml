@@ -26,7 +26,9 @@ before_script:
 
 build_artifact:
   stage: build
-  script: gradle --build-cache assemble
+  script: 
+    - gradle --build-cache assemble
+    - BUILD_FILENAME = $(gradle -q builtArchive)
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -40,7 +42,9 @@ build_artifact:
 test:
   image: gradle:alpine
   stage: test
-  script: gradle check
+  script: 
+    - gradle check
+    - echo $BUILD_FILENAME
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull

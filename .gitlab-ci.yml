@@ -28,7 +28,7 @@ build_artifact:
   stage: build
   script: 
     - gradle --build-cache assemble
-    - BUILD_FILENAME = $(gradle -q builtArchive)
+    - export BUILD_FILENAME="$(gradle -q builtArchive)"
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push

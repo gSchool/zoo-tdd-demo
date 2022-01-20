@@ -19,6 +19,7 @@ image: gradle:alpine
 variables:
   AUTO_DEVOPS_PLATFORM_TARGET: EC2
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  TF_STATE_NAME: "dev"
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle

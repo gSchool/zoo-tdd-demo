@@ -24,3 +24,11 @@ test {
 jar {
     enabled = false
 }
+
+tasks.register('builtArchive', Zip) {
+    from 'build/libs'
+
+		doLast {
+			println builtArchive.archiveFileName.get()
+		}
+}

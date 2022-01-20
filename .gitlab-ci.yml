@@ -28,7 +28,7 @@ build_artifact:
   stage: build
   script: 
     - gradle --build-cache assemble
-    - export BUILD_FILENAME=$(gradle -q builtArchive)
+    - echo "BUILD_FILENAME=$(gradle -q builtArchive)" >> build.env
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -36,6 +36,8 @@ build_artifact:
       - build
       - .gradle
   artifacts:
+    reports:
+      dotenv: build.env
     paths:
       - build/libs/*.jar
 

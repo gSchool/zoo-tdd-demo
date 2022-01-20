@@ -28,8 +28,16 @@ terraform {
   resource "aws_s3_bucket_object" "jar_artifact" {
   bucket = aws_s3_bucket.jar_bucket.id
 
-  key    = "zoo-tdd-demo-0.0.1-SNAPSHOT.jar"
-  source = "build/libs/zoo-tdd-demo-0.0.1-SNAPSHOT.jar"
+  key    = var.BUILD_FILENAME
+  source = "build/libs/${var.BUILD_FILENAME}"
 
-  etag = filemd5("build/libs/zoo-tdd-demo-0.0.1-SNAPSHOT.jar")
+  etag = filemd5("build/libs/${var.BUILD_FILENAME}")
+  }
+
+  variable "BUILD_FILENAME" {
+    type        = string
+  }
+
+  output "BUILD_FILENAME_OUTPUT" {
+    value = var.BUILD_FILENAME
   }

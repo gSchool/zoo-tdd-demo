@@ -1,6 +1,5 @@
-# include:
-#   - template: Auto-DevOps.gitlab-ci.yml
-
+include:
+  - template: Terraform.latest.gitlab-ci.yml
 # This file is a template, and might need editing before it works on your project.
 # To contribute improvements to CI/CD templates, please follow the Development guide at:
 # https://docs.gitlab.com/ee/development/cicd/templates.html
@@ -52,6 +51,3 @@ test:
       - build
       - .gradle
 
-deploy-test-var:
-  stage: deploy
-  script: echo $TF_VAR_BUILD_FILENAME

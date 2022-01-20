@@ -28,7 +28,7 @@ build_artifact:
   stage: build
   script: 
     - gradle --build-cache assemble
-    - echo "BUILD_FILENAME=$(gradle -q builtArchive)" >> build.env
+    - echo "TF_VAR_BUILD_FILENAME=$(gradle -q builtArchive)" >> build.env
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -54,4 +54,4 @@ test:
 
 deploy-test-var:
   stage: deploy
-  script: echo $BUILD_FILENAME
+  script: echo $TF_VAR_BUILD_FILENAME

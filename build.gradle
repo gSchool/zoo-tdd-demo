@@ -25,7 +25,7 @@ jar {
     enabled = false
 }
 
-tasks.register('builtArchive', Zip) {
+tasks.register('builtArchive', Jar) {
     from 'build/libs'
 
 		doLast {

@@ -10,8 +10,6 @@ include:
 # https://gradle.org/
 # https://github.com/gradle/gradle
 
-image: gradle:alpine
-
 # Disable the Gradle daemon for Continuous Integration servers as correctness
 # is usually a priority over speed in CI environments. Using a fresh
 # runtime for each build is more reliable since the runtime is completely
@@ -19,11 +17,13 @@ image: gradle:alpine
 variables:
   AUTO_DEVOPS_PLATFORM_TARGET: EC2
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  TF_STATE_NAME: "dev"
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 build_artifact:
+  image: gradle:alpine
   stage: build
   script: 
     - gradle --build-cache assemble
@@ -39,6 +39,10 @@ build_artifact:
       dotenv: build.env
     paths:
       - build/libs/*.jar
+
+provision:
+  extends: .terraform:build
+  needs: ["build_artifact"]
 
 test:
   image: gradle:alpine

@@ -54,3 +54,8 @@ test:
     - gitlab-terraform apply
   rules:
     - when: on_success
+  allow_failure: true
+
+.terraform:destroy:
+  rules:
+    - when: manual

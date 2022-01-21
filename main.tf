@@ -54,25 +54,25 @@ resource "aws_security_group" "allow_tomcat" {
   vpc_id      = aws_default_vpc.default.id
 
   ingress {
-    from_port        = 8080
-    to_port          = 8080
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -81,11 +81,11 @@ resource "aws_security_group" "allow_tomcat" {
 }
 
 resource "aws_instance" "zoo-spring-server" {
-  ami           = "ami-08e4e35cccc6189f4"
-  instance_type = "t2.micro"
+  ami                  = "ami-08e4e35cccc6189f4"
+  instance_type        = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.ec2-zoo-profile.name
-  key_name = "t4-cicd"
-  security_groups = ["allow_tomcat"]
+  key_name             = "t4-cicd"
+  security_groups      = ["allow_tomcat"]
 
 
   user_data = <<EOF
@@ -125,18 +125,18 @@ resource "aws_iam_role" "ec2_assume" {
 EOF
 
   tags = {
-      Name = "ec2_assume"
+    Name = "ec2_assume"
   }
 }
 
 resource "aws_iam_instance_profile" "ec2-zoo-profile" {
   name = "ec2-zoo-profile"
-  role = "${aws_iam_role.ec2_assume.name}"
+  role = aws_iam_role.ec2_assume.name
 }
 
 resource "aws_iam_role_policy" "s3_access" {
   name = "s3_access"
-  role = "${aws_iam_role.ec2_assume.id}"
+  role = aws_iam_role.ec2_assume.id
 
   policy = <<EOF
 {

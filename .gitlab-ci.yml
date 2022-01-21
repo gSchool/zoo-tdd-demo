@@ -40,8 +40,7 @@ test:
   needs: ["build_artifact"]
 
 .terraform:deploy:
-  dependencies:
-    - build_artifact
+  needs: ["build_artifact"]
   script:
     - cd ${TF_ROOT}
     - ls

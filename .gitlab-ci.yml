@@ -40,6 +40,10 @@ build_artifact:
     paths:
       - build/libs/*.jar
 
+provision:
+  extends: .terraform:build
+  needs: ["build_artifact"]
+
 test:
   image: gradle:alpine
   stage: test

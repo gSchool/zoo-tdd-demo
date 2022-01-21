@@ -29,9 +29,9 @@ terraform {
   bucket = aws_s3_bucket.jar_bucket.id
 
   key    = var.BUILD_FILENAME
-  source = var.BUILD_FILENAME
+  source = "build/libs/${var.BUILD_FILENAME}"
 
-  etag = filemd5(var.BUILD_FILENAME)
+  etag = filemd5("build/libs/${var.BUILD_FILENAME}")
   }
 
   variable "BUILD_FILENAME" {

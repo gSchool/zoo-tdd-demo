@@ -40,5 +40,9 @@ test:
   needs: ["build_artifact"]
 
 .terraform:deploy:
+  script:
+    - cd ${TF_ROOT}
+    - ls
+    - gitlab-terraform apply
   rules:
     - when: on_success

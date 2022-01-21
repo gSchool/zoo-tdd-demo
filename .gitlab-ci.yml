@@ -10,8 +10,6 @@ include:
 # https://gradle.org/
 # https://github.com/gradle/gradle
 
-image: gradle:alpine
-
 # Disable the Gradle daemon for Continuous Integration servers as correctness
 # is usually a priority over speed in CI environments. Using a fresh
 # runtime for each build is more reliable since the runtime is completely
@@ -25,6 +23,7 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 build_artifact:
+  image: gradle:alpine
   stage: build
   script: 
     - gradle --build-cache assemble

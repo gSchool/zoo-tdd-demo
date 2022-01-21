@@ -38,6 +38,13 @@ test:
 
 .terraform:build:
   needs: ["build_artifact"]
+  artifacts:
+    reports:
+      dotenv: build.env
+    paths:
+      - build/libs/*.jar
+      - ${TF_ROOT}/plan.cache
+  
 
 .terraform:deploy:
   needs: ["build", "build_artifact"]

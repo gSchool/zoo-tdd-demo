@@ -56,6 +56,11 @@ test:
     - when: on_success
   allow_failure: true
 
+test-job:
+  stage: cleanup
+  script:
+    - echo "hello"
+
 .terraform:destroy:
   rules:
     - when: manual

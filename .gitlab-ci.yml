@@ -1,6 +1,13 @@
 include:
   - template: Terraform.latest.gitlab-ci.yml
 
+stages:
+  - validate
+  - test
+  - build
+  - deploy
+  - cleanup
+  
 variables:
   TF_STATE_NAME: "dev"
 

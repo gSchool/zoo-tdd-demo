@@ -60,12 +60,10 @@ test:
     - gitlab-terraform apply
   rules:
     - when: on_success
+  artifacts:
+    paths:
+      - terraform.tfstate
   allow_failure: true
 
-test-job:
-  stage: cleanup
-  script:
-    - echo "hello"
-  rules:
-    - when: manual
-
+.terraform:destroy:
+  needs: ["deploy"]

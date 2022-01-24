@@ -1,12 +1,5 @@
 include:
-  - template: Terraform.latest.gitlab-ci.yml
-
-stages:
-  - validate
-  - test
-  - build
-  - deploy
-  - cleanup
+  - template: templates/local.Terraform.latest.gitlab-ci.yml
   
 variables:
   TF_STATE_NAME: "dev"
@@ -64,11 +57,9 @@ test:
   allow_failure: true
 
 test-job:
-  stage: cleanup
   script:
     - echo "hello"
 
 .terraform:destroy:
-  stage: cleanup
   rules:
     - when: manual

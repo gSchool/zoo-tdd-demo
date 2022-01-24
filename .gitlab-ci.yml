@@ -64,6 +64,7 @@ test:
   allow_failure: true
 
 test-job:
+  stage: cleanup
   script:
     - echo "hello"
 

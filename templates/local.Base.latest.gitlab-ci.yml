@@ -60,7 +60,7 @@ cache:
 .terraform:destroy: &terraform_destroy
   stage: cleanup
   script:
-    - echo "Cleanup Stage created, destroy job created"
+    - echo ${TF_VAR_BUILD_FILENAME} <= BUILD FILE NAME HERE
     - cd ${TF_ROOT}
     - gitlab-terraform destroy
   resource_group: ${TF_STATE_NAME}

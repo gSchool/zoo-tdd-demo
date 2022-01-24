@@ -66,4 +66,4 @@ test:
   allow_failure: true
 
 .terraform:destroy:
-  needs: ["deploy"]
+  needs: ["build", "deploy"]

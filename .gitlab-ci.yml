@@ -18,7 +18,7 @@ build_artifact:
   image: gradle:alpine
   stage: build
   script:
-    - gradle --build-cache assemble
+    - gradle build
     - echo "TF_VAR_BUILD_FILENAME=$(gradle -q builtArchive)" >> build.env
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -66,4 +66,4 @@ test:
   allow_failure: true
 
 .terraform:destroy:
-  needs: ["build", "deploy"]
+  needs: ["build", "build_artifact", "deploy"]

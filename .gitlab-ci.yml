@@ -1,6 +1,6 @@
 include:
   - local: templates/local.Terraform.latest.gitlab-ci.yml
-  
+
 variables:
   TF_STATE_NAME: "dev"
 
@@ -17,7 +17,7 @@ before_script:
 build_artifact:
   image: gradle:alpine
   stage: build
-  script: 
+  script:
     - gradle --build-cache assemble
     - echo "TF_VAR_BUILD_FILENAME=$(gradle -q builtArchive)" >> build.env
   cache:
@@ -51,7 +51,6 @@ test:
     paths:
       - build/libs/*.jar
       - ${TF_ROOT}/plan.cache
-  
 
 .terraform:deploy:
   needs: ["build", "build_artifact"]
@@ -67,6 +66,8 @@ test-job:
   stage: cleanup
   script:
     - echo "hello"
+  rules:
+    - when: manual
 
 .terraform:destroy:
   stage: cleanup

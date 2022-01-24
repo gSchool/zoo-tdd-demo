@@ -24,3 +24,8 @@ deploy:
     - build
   environment:
     name: $TF_STATE_NAME
+
+cleanup:
+  extends: .terraform:destroy
+  dependencies:
+    - build

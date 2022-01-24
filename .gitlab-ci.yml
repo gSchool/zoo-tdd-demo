@@ -1,5 +1,5 @@
 include:
-  - template: templates/local.Terraform.latest.gitlab-ci.yml
+  - local: templates/local.Terraform.latest.gitlab-ci.yml
   
 variables:
   TF_STATE_NAME: "dev"

@@ -7,6 +7,12 @@ include:
   - local: templates/local.Base.latest.gitlab-ci.yml  # https://gitlab.com/gitlab-org/gitlab/blob/master/lib/gitlab/ci/templates/Terraform/Base.latest.gitlab-ci.yml
   - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
 
+stages:
+  - validate
+  - test
+  - build
+  - deploy
+
 fmt:
   extends: .terraform:fmt
   needs: []
@@ -29,3 +35,5 @@ cleanup:
   extends: .terraform:destroy
   dependencies:
     - build
+  environment:
+    name: $TF_STATE_NAME

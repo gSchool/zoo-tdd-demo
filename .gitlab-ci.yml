@@ -69,7 +69,3 @@ test-job:
   rules:
     - when: manual
 
-.terraform:destroy:
-  stage: cleanup
-  rules:
-    - when: manual

@@ -4,6 +4,13 @@ include:
 variables:
   TF_STATE_NAME: "dev"
 
+stages:
+  - validate
+  - test
+  - build
+  - deploy
+  - cleanup
+
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 

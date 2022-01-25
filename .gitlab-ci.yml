@@ -70,4 +70,4 @@ test:
     - deploy
     - build_artifact
   rules:
-    - when: on_success
+    - when: manual

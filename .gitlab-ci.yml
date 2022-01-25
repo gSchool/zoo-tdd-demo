@@ -67,6 +67,7 @@ test:
 
 .terraform:destroy:
   dependencies:
+    - deploy
     - build_artifact
   rules:
     - when: on_success

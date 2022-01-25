@@ -33,7 +33,3 @@ deploy:
 
 cleanup:
   extends: .terraform:destroy
-  dependencies:
-    - build
-  environment:
-    name: $TF_STATE_NAME

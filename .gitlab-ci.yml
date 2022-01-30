@@ -1,8 +1,7 @@
 include:
   - template: Terraform/Base.latest.gitlab-ci.yml
-
-# variables:
-#   TF_STATE_NAME: dev
+  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
+  # A Static Application Security Testing (SAST) on IaC job provided by Gitlab.
 
 stages:
   - validate
@@ -13,6 +12,11 @@ stages:
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
+
+# Much of this job is copied over from the Gradle CICD Template
+# found here: https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Gradle.gitlab-ci.yml
+# The only specificity to note is setting the BUILD_FILNAME env so that
+# later terraform jobs can use the jar archive name to upload and deploy artifacts
 
 assemble:
   image: gradle:alpine
@@ -42,6 +46,12 @@ gradle-test:
     paths:
       - build
       - .gradle
+
+# These jobs reference the hidden jobs that are defined in the 
+# included template Terraform/Base.latest.gitlab-ci.yml found here
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Terraform/Base.latest.gitlab-ci.yml
+# It does copy much from the opinionated template Terraform.latest.gitlab-ci.yml
+# copied over included so that yml overrides are easier to see here
 
 terraform-fmt:
   extends: .terraform:fmt

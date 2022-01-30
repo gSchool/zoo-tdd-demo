@@ -1,8 +1,8 @@
 include:
-  - template: Terraform.latest.gitlab-ci.yml
+  - template: Terraform/Base.latest.gitlab-ci.yml
 
-variables:
-  TF_STATE_NAME: dev
+# variables:
+#   TF_STATE_NAME: dev
 
 stages:
   - validate
@@ -32,7 +32,7 @@ assemble:
     paths:
       - build/libs/*.jar
 
-test:
+gradle-test:
   image: gradle:alpine
   stage: test
   script: gradle check
@@ -43,7 +43,8 @@ test:
       - build
       - .gradle
 
-.terraform:build:
+terraform-plan:
+  extends: .terraform:build
   needs: ["assemble"]
   artifacts:
     reports:
@@ -52,7 +53,8 @@ test:
       - build/libs/*.jar
       - ${TF_ROOT}/plan.cache
 
-.terraform:deploy:
+terraform-apply:
+  extends: .terraform:deploy
   needs: ["build", "assemble"]
   rules:
     - when: on_success

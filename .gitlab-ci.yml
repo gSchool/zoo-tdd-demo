@@ -55,7 +55,7 @@ terraform-plan:
 
 terraform-apply:
   extends: .terraform:deploy
-  needs: ["build", "assemble"]
+  needs: ["terraform-plan", "assemble"]
   rules:
     - when: on_success
   artifacts:
@@ -66,7 +66,7 @@ terraform-apply:
 destroy:
   extends: .terraform:destroy
   dependencies:
-    - deploy
+    - terraform-apply
     - assemble
   rules:
     - when: manual

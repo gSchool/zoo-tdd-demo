@@ -1,6 +1,9 @@
 include:
   - template: Terraform.latest.gitlab-ci.yml
 
+variables:
+  TF_STATE_NAME: dev
+
 stages:
   - validate
   - test

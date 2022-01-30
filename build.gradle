@@ -25,10 +25,6 @@ jar {
     enabled = false
 }
 
-tasks.register('builtArchive', Jar) {
-    from 'build/libs'
-
-		doLast {
-			println builtArchive.archiveFileName.get()
-		}
+tasks.register('builtArchive') {
+	println String.format("%s-%s.jar", archivesBaseName, getVersion())
 }

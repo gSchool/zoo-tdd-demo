@@ -61,7 +61,8 @@ test:
       - terraform.tfstate
   allow_failure: true
 
-.terraform:destroy:
+destroy:
+  extends: .terraform:destroy
   dependencies:
     - deploy
     - assemble

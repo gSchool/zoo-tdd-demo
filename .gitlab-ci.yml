@@ -1,8 +1,5 @@
 include:
-  - local: templates/local.Terraform.latest.gitlab-ci.yml
-
-variables:
-  TF_STATE_NAME: "dev"
+  - template: Terraform.latest.gitlab-ci.yml
 
 stages:
   - validate
@@ -14,11 +11,11 @@ stages:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-build_artifact:
+assemble:
   image: gradle:alpine
   stage: build
   script:
-    - gradle build
+    - gradle --build-cache assemble
     - echo "TF_VAR_BUILD_FILENAME=$(gradle -q builtArchive)" >> build.env
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -44,7 +41,7 @@ test:
       - .gradle
 
 .terraform:build:
-  needs: ["build_artifact"]
+  needs: ["assemble"]
   artifacts:
     reports:
       dotenv: build.env
@@ -53,11 +50,7 @@ test:
       - ${TF_ROOT}/plan.cache
 
 .terraform:deploy:
-  needs: ["build", "build_artifact"]
-  script:
-    - cd ${TF_ROOT}
-    - ls
-    - gitlab-terraform apply
+  needs: ["build", "assemble"]
   rules:
     - when: on_success
   artifacts:
@@ -68,6 +61,6 @@ test:
 .terraform:destroy:
   dependencies:
     - deploy
-    - build_artifact
+    - assemble
   rules:
     - when: manual
